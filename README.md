@@ -56,8 +56,14 @@ Contributions are accepted! We'd love the communities help in building a better 
 ### Training
 
 *Note: you need at least 40GB of free disk space to train a model.*
+0. **Use mimic-recording-studio data as ljspeech dataset.**
+  * Edit your local environment parameters in createljspeech.py
+  * Run createljspeech.py
+  * Copy ljspeech file structure to `~/tacotron`
+> Go forward to step 2
 
 1. **Download a speech dataset.**
+> If using your own mimic-recording-studio dataset please use step 0 insted
 
    The following are supported out of the box:
     * [LJ Speech](https://keithito.com/LJ-Speech-Dataset/) (Public Domain)
