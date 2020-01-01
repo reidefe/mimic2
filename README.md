@@ -205,6 +205,12 @@ Example
     python analyze.py --train_file_path=~/tacotron/training/train.txt --save_to=~tacotron/visuals --cmu_dict_path=~/cmudict-0.7b
 ```
 
+In case of docker usage you've to export your DISPLAY variable on container start to successfully create the image files. Ensure x server connections are enabled on your host system.
+
+```
+docker run -it -p 3000:3000 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix mycroft/mimic2:cpu
+```
+
 cmu_dict_path is optional if you'd like to visualize the distribution of the phonemes.
 
 analyze.py outputs 6 different plots.
