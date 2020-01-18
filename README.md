@@ -58,7 +58,6 @@ Contributions are accepted! We'd love the communities help in building a better 
 *Note: you need at least 40GB of free disk space to train a model.*
 
 1. **Download a speech dataset.**
-> If using your own mimic-recording-studio dataset please use step 0 insted
 
    The following are supported out of the box:
     * [LJ Speech](https://keithito.com/LJ-Speech-Dataset/) (Public Domain)
