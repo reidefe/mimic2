@@ -4,3 +4,5 @@ __pycache__/
 .DS_Store
 run*.sh
 .vscode
+export_recs_per_day.py
+sample_recs.py
