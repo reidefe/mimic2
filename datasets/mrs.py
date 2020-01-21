@@ -44,9 +44,12 @@ def build_from_path(in_dir, out_dir, num_workers=1, tqdm=lambda x: x):
   
   for row in c.execute('SELECT audio_id, lower(prompt) FROM audiomodel ORDER BY length(prompt)'):
     wav_path = os.path.join(wav_dir, '%s.wav' % row[0])
-    text = row[1]
-    futures.append(executor.submit(partial(_process_utterance, out_dir, index, wav_path, text)))
-    index += 1
+    if os.path.isfile(wav_path):
+      text = row[1]
+      futures.append(executor.submit(partial(_process_utterance, out_dir, index, wav_path, text)))
+      index += 1
+    else:
+      print("File " + wav_path + " no found. Skipping.")
   return [future.result() for future in tqdm(futures)]
 
 

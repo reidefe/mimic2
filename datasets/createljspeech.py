@@ -31,10 +31,14 @@ def main():
     metadata = open(os.path.join(dir_base_ljspeech,"metadata.csv"),mode="w", encoding="utf8") 
 
     for row in c.execute('SELECT audio_id, prompt, lower(prompt) FROM audiomodel ORDER BY length(prompt)'):
-        metadata.write(row[0] + "|" + row[1] + "|" + row[2] + "\n")
         audio_file_source = os.path.join(dir_base_mrs,"backend","audio_files", uid, row[0] + ".wav")
-        audio_file_dest = os.path.join(dir_base_ljspeech_wav,row[0] + ".wav")
-        copyfile(audio_file_source,audio_file_dest)
+        if os.path.isfile(audio_file_source):
+            metadata.write(row[0] + "|" + row[1] + "|" + row[2] + "\n")
+            audio_file_dest = os.path.join(dir_base_ljspeech_wav,row[0] + ".wav")
+            copyfile(audio_file_source,audio_file_dest)
+        else:
+            print("File " + audio_file_source + " no found. Skipping.")
+
 
     metadata.close()
     conn.close()
