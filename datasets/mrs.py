@@ -42,7 +42,7 @@ def build_from_path(in_dir, out_dir, num_workers=1, tqdm=lambda x: x):
   wav_dir = os.path.join(in_dir,"backend","audio_files",uid)
   print("Search for wav files in " + wav_dir)
   
-  for row in c.execute('SELECT audio_id, lower(prompt) FROM audiomodel ORDER BY length(prompt)'):
+  for row in c.execute('SELECT DISTINCT audio_id, lower(prompt) FROM audiomodel ORDER BY length(prompt)'):
     wav_path = os.path.join(wav_dir, '%s.wav' % row[0])
     if os.path.isfile(wav_path):
       text = row[1]

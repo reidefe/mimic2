@@ -30,7 +30,7 @@ def main():
     # Create new metadata.csv for ljspeech
     metadata = open(os.path.join(dir_base_ljspeech,"metadata.csv"),mode="w", encoding="utf8") 
 
-    for row in c.execute('SELECT audio_id, prompt, lower(prompt) FROM audiomodel ORDER BY length(prompt)'):
+    for row in c.execute('SELECT DISTINCT audio_id, prompt, lower(prompt) FROM audiomodel ORDER BY length(prompt)'):
         audio_file_source = os.path.join(dir_base_mrs,"backend","audio_files", uid, row[0] + ".wav")
         if os.path.isfile(audio_file_source):
             metadata.write(row[0] + "|" + row[1] + "|" + row[2] + "\n")
