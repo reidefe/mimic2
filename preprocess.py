@@ -28,9 +28,10 @@ def preprocess_ljspeech(args):
 def preprocess_mrs(args):
   in_dir = args.mrs_dir
   out_dir = os.path.join(args.base_dir, args.output)
+  username = args.mrs_username
   os.makedirs(out_dir, exist_ok=True)
   metadata = mrs.build_from_path(
-      in_dir, out_dir, args.num_workers, tqdm=tqdm)
+      in_dir, out_dir, username, args.num_workers, tqdm=tqdm)
   write_metadata(metadata, out_dir)
 
 def preprocess_amy(args):
@@ -87,6 +88,7 @@ def main():
   parser = argparse.ArgumentParser()
   parser.add_argument('--base_dir', default=os.path.expanduser('~/tacotron'))
   parser.add_argument('--mrs_dir', required=False)
+  parser.add_argument('--mrs_username', required=False)
   parser.add_argument('--output', default='training')
   parser.add_argument(
       '--dataset', required=True, choices=['amy', 'blizzard', 'ljspeech', 'kusal', 'mailabs','mrs']

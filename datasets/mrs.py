@@ -7,7 +7,7 @@ import sqlite3
 import sys
 
 
-def build_from_path(in_dir, out_dir, num_workers=1, tqdm=lambda x: x):
+def build_from_path(in_dir, out_dir, username, num_workers=1, tqdm=lambda x: x):
   '''Preprocesses the recordings from mimic-recording-studio (based on sqlite db) into a given output directory.
 
     Args:
@@ -32,10 +32,18 @@ def build_from_path(in_dir, out_dir, num_workers=1, tqdm=lambda x: x):
   conn = sqlite3.connect(dbfile)
   c = conn.cursor()
 
-  # Get user id from sqlite to find recordings in directory structure
-  # TODO: Currently just works with one user
-  for row in c.execute('SELECT uuid FROM usermodel LIMIT 1;'):
+  uid = ''
+  sql_get_guid = "SELECT uuid FROM usermodel LIMIT 1;"
+  if username:
+    print("Query user guid for " + username + " in sqlite db")
+    sql_get_guid = "SELECT uuid FROM usermodel WHERE UPPER(user_name) = '" + username.upper() + "' LIMIT 1;"
+
+  for row in c.execute(sql_get_guid):
     uid = row[0]
+  
+  if uid == '':
+    print("No userid could be found in sqlite db.")
+    sys.exit()
   
   print("Found speaker user guid in sqlite: " + uid)
 
