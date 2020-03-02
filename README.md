@@ -97,6 +97,11 @@ Contributions are accepted! We'd love the communities help in building a better 
    ```
    python3 preprocess.py --dataset ljspeech
    ```
+   If recorded with mimic-recording-studio
+   ````
+   python3 preprocess.py --dataset mrs --mrs_dir=<path_to>/mimic-recording-studio/
+   ````
+
      * other datasets can be used, i.e. `--dataset blizzard` for Blizzard data
      * for the mailabs dataset, do `preprocess.py --help` for options. Also, note that mailabs uses sample_size of 16000
      * you may want to create your own preprocessing script that works for your dataset. You can follow examples from preprocess.py and ./datasets
@@ -185,6 +190,14 @@ Contributions are accepted! We'd love the communities help in building a better 
     
   * Here is the expected loss curve when training on LJ Speech with the default hyperparameters:
     ![Loss curve](https://user-images.githubusercontent.com/1945356/36077599-c0513e4a-0f21-11e8-8525-07347847720c.png)
+
+  * If you used mimic-recording-studio and want to create an ljspeech dataset syntax out of it you can use the following command
+  ````
+  python3 ./datasets/createljspeech.py --mrs_dir=<path_to>/mimic-recording-studio/
+  ````
+  This generates an tacotron/LJSpeech-1.1 folder under your user home.
+
+
 
 ## Other Implementations
   * By Alex Barron: https://github.com/barronalex/Tacotron

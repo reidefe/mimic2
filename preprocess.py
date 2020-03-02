@@ -3,7 +3,9 @@ import os
 from multiprocessing import cpu_count
 from tqdm import tqdm
 from datasets import amy, blizzard, ljspeech, kusal, mailabs
+from datasets import mrs
 from hparams import hparams, hparams_debug_string
+import sys
 
 
 def preprocess_blizzard(args):
@@ -23,6 +25,14 @@ def preprocess_ljspeech(args):
       in_dir, out_dir, args.num_workers, tqdm=tqdm)
   write_metadata(metadata, out_dir)
 
+def preprocess_mrs(args):
+  in_dir = args.mrs_dir
+  out_dir = os.path.join(args.base_dir, args.output)
+  username = args.mrs_username
+  os.makedirs(out_dir, exist_ok=True)
+  metadata = mrs.build_from_path(
+      in_dir, out_dir, username, args.num_workers, tqdm=tqdm)
+  write_metadata(metadata, out_dir)
 
 def preprocess_amy(args):
   in_dir = os.path.join(args.base_dir, 'amy')
@@ -77,9 +87,11 @@ def write_metadata(metadata, out_dir):
 def main():
   parser = argparse.ArgumentParser()
   parser.add_argument('--base_dir', default=os.path.expanduser('~/tacotron'))
+  parser.add_argument('--mrs_dir', required=False)
+  parser.add_argument('--mrs_username', required=False)
   parser.add_argument('--output', default='training')
   parser.add_argument(
-      '--dataset', required=True, choices=['amy', 'blizzard', 'ljspeech', 'kusal', 'mailabs']
+      '--dataset', required=True, choices=['amy', 'blizzard', 'ljspeech', 'kusal', 'mailabs','mrs']
   )
   parser.add_argument('--mailabs_books_dir',
                       help='absolute directory to the books for the mlailabs')
@@ -109,6 +121,8 @@ def main():
     preprocess_kusal(args)
   elif args.dataset == 'mailabs':
     preprocess_mailabs(args)
+  elif args.dataset == 'mrs':
+    preprocess_mrs(args)
 
 
 if __name__ == "__main__":
