@@ -8,3 +8,6 @@ tqdm==4.11.2
 seaborn
 flask_cors
 flask
+# Workaround llvmlite being incompatible with current llvm - Bug #49
+numba==0.45.1
+llvmlite==0.30.0
