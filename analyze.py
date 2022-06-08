@@ -1,4 +1,4 @@
-# visualisation tools for mimic2 
+# visualisation tools for text-to-speech
 import matplotlib.pyplot as plt
 from statistics import stdev, mode, mean, median
 from statistics import StatisticsError

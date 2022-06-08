@@ -1,6 +1,6 @@
 FROM tensorflow/tensorflow:1.8.0-py3
 
-RUN mkdir /root/mimic2
+RUN mkdir /root/text-to-speech
 COPY . /root/mimic2
 WORKDIR /root/mimic2
 RUN apt-get update -y && apt-get install -y llvm-8
